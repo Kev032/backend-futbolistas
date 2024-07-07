@@ -2,6 +2,7 @@ package com.app.backendfutbolistas.controller;
 
 import com.app.backendfutbolistas.entity.Futbolista;
 import com.app.backendfutbolistas.service.FutbolistaService;
+import com.app.backendfutbolistas.util.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,5 +26,15 @@ public class FutbolistaController {
         return futbolistaService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Futbolista> updateFutbolista(@PathVariable Long id, @RequestBody Futbolista futbolistaDetails) {
+        try {
+            Futbolista updatedFutbolista = futbolistaService.updateFutbolista(id, futbolistaDetails);
+            return ResponseEntity.ok(updatedFutbolista);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

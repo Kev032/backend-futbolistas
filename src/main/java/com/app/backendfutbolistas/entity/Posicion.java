@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class Posicion {
 
@@ -18,5 +17,9 @@ public class Posicion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
+
+    public Posicion(){
+
+    }
 
 }
